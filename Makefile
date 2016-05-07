@@ -16,6 +16,11 @@ $(TARGET_LIST): lib.o
 		(cd $$dir; $(MAKE);)\
 	done
 
+install_iso:
+	for elf in $(TARGET_LIST); do\
+		cp $$elf ../../root/boot/$$elf;\
+	done
+
 clean:
 	cd lib; $(MAKE) clean
 	for dir in $(DIRS); do\
