@@ -1,5 +1,5 @@
 export CC	:= clang
-export CFLAGS 	:= -Wall -ffreestanding -mno-red-zone -mno-mmx -mno-sse -mno-sse2 -std=c11 -nostdlib
+export CFLAGS 	:= -Wall -ffreestanding -mno-red-zone -mno-mmx -mno-sse -mno-sse2 -std=c11 -nostdlib -g
 export LDFLAGS := -nostdlib
 
 DIRS	:= memory
@@ -16,7 +16,7 @@ $(TARGET_LIST): lib.o
 		(cd $$dir; $(MAKE);)\
 	done
 
-install_iso:
+install_iso: $(TARGET_LIST)
 	for elf in $(TARGET_LIST); do\
 		cp $$elf ../../root/boot/$$elf;\
 	done
