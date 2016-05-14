@@ -12,13 +12,7 @@ static void initialize(void)
     struct Message msg;
     uint64_t result; 
 
-    // Registing server to System
-    msg.number = Regist;
-    msg.content.num = Memory;
-    result = send(System, &msg);
-
     // get early memory map
-    msg.dest = Memory;
     msg.number = Initialize,
     msg.content.address = (uintptr_t)bitmap;
     msg.content.num = bitmap_size * 8; // bitmap end
@@ -28,6 +22,14 @@ static void initialize(void)
     msg.content.address = 0;
     msg.content.num = 0;
     result = receive(System, &msg);
+
+    if(!msg.content.num)
+    {
+        while (true) {
+            //todo
+            //failed
+        } 
+    }
 }
 
 void main(void)
