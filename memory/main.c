@@ -14,12 +14,14 @@ uint64_t bitmap[BITMAP_ENTRY_NUM];
 static void initialize(void)
 {
     struct Message msg;
-    msg.dest = Memory;
+
+    uint64_t result; 
+
+    // get early memory map
     msg.number = Initialize,
     msg.content.address = (uintptr_t)bitmap;
-    msg.content.num = BITMAP_ENTRY_NUM * 8; // bitmap end
+    msg.content.num = bitmap_size * 8; // bitmap end
 
-    uint64_t result;
     result = send(System, &msg);
 
     msg.content.address = 0;
@@ -32,6 +34,7 @@ static void initialize(void)
 void main(void)
 {
     uint64_t result; 
+
     initialize();
 
     struct Message msg;
