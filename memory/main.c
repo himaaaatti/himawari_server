@@ -1,6 +1,6 @@
 #include <task.h>
 #include <stdbool.h>
-#include <server.h>
+//#include <server.h>
 
 #define PAGE_SIZE 0x1000
 #define EARLY_MEMORY_SIZE 0x01000000 // 16MB (after ISA memory hole)
@@ -20,7 +20,8 @@ static void initialize(void)
     // get early memory map
     msg.number = Initialize,
     msg.content.address = (uintptr_t)bitmap;
-    msg.content.num = bitmap_size * 8; // bitmap end
+    msg.content.num = BITMAP_ENTRY_NUM * 8;
+//    msg.content.num = bitmap_size * 8; // bitmap end
 
     result = send(System, &msg);
 
